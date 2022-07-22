@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="pot">
+    <div class="images">
+      <img src="https://i.stack.imgur.com/qgNyF.png?s=328&g=1" width="100px" height="100px" />
+      <img src="https://i.stack.imgur.com/qgNyF.png?s=328&g=1" width="100px" height="100px" />
+    </div>
+  </div>
+  <section id="registration-page">
+    <form class="signup-form" id="registration-form">
+      <div class="form-header">
+        <h1>Create Account</h1>
+      </div>
+      <div class="form-body">
+        <div class="row">
+          <label>Name</label>
+          <div class="input-group">
+            <input type="text" id="name" placholder="Enter your last name" required />
+          </div>
+        </div>
+        <div class="row">
+          <label>Email </label>
+          <div class="input-group">
+            <input type="email" id="email" placholder="Enter your email address" required />
+          </div>
+        </div>
+      </div>
+      <div class="form-footer">
+        <button class="btn" type="submit">Create</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    function processForm(e) {
+      if (e.preventDefault) e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      postData('http://localhost/signup', { name, email })
+      .then(data => {
+        alert('Your account is registered');
+        e.target.reset();
+      }).catch(err => {
+        alert(err.message);
+      });
+
+      return false;
+    }
+
+    var form = document.getElementById('registration-form');
+    if (form.attachEvent) {
+      form.attachEvent("submit", processForm);
+    } else {
+      form.addEventListener("submit", processForm);
+    }
+
+    async function postData(url = '', data = {}) {
+      // Default options are marked with *
+      const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+      });
+      return response.json(); // parses JSON response into native JavaScript objects
+    }
+  </script>
+</body>
+
+</html>
