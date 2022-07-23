@@ -47,7 +47,7 @@
 
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
-      postData('http://54.251.192.199:8080/signup', { name, email })
+      postData('https://hw.nhadavina.com/signup', { name, email })
         .then(data => {
           alert('Your account is registered');
           e.target.reset();
