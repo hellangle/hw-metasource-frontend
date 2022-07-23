@@ -47,13 +47,13 @@
 
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
-      postData('http://localhost/signup', { name, email })
-      .then(data => {
-        alert('Your account is registered');
-        e.target.reset();
-      }).catch(err => {
-        alert(err.message);
-      });
+      postData('http://54.251.192.199:8080/signup', { name, email })
+        .then(data => {
+          alert('Your account is registered');
+          e.target.reset();
+        }).catch(err => {
+          alert(err.message);
+        });
 
       return false;
     }
